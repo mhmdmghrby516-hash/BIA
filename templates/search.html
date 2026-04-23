@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="container">
+        <h1><i class="fas fa-search"></i> Search results</h1>
+        {% if query %}
+            <p>Showing matches for <strong>{{ query }}</strong>.</p>
+        {% else %}
+            <p>Type a category name or product id from the header search bar.</p>
+        {% endif %}
+
+        {% if results %}
+            <div class="products-grid">
+                {% for product in results %}
+                    <div class="product-card">
+                        <img class="product-image" src="https://picsum.photos/seed/{{ product.product_id }}/300/200" alt="{{ product.name }}" loading="lazy">
+                        <div class="product-badge">#{{ product.product_id }}</div>
+                        <h3>{{ product.name }}</h3>
+                        <div class="product-category"><i class="fas fa-tag"></i> {{ product.category }}</div>
+                        <div class="product-price">${{ "%.2f"|format(product.price) }}</div>
+                        <div class="product-rating"><span class="avg-rating">Average rating {{ "%.1f"|format(product.avg_rating) }}</span></div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% elif query %}
+            <p>No products matched your query.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

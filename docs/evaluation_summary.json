@@ -1,0 +1,469 @@
+{
+  "evaluated_users": 180,
+  "precision_at_5": {
+    "baseline": 0.0044,
+    "optimized": 0.0056
+  },
+  "recall_at_5": {
+    "baseline": 0.0111,
+    "optimized": 0.013
+  },
+  "diversity_at_5": {
+    "baseline": 0.4167,
+    "optimized": 0.7511
+  },
+  "coverage": {
+    "baseline": 0.432,
+    "optimized": 0.488
+  },
+  "hit_rate": {
+    "baseline": 0.0222,
+    "optimized": 0.0278
+  },
+  "examples": [
+    {
+      "user_id": 23,
+      "truth": [
+        409,
+        454
+      ],
+      "baseline": [
+        {
+          "product_id": 386,
+          "name": "Clothes Item 386",
+          "category": "Clothes",
+          "price": 1063.0,
+          "avg_rating": 3.0,
+          "score": 0.6454,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Clothes. Fits your typical price range. Supported by similar users."
+        },
+        {
+          "product_id": 398,
+          "name": "Clothes Item 398",
+          "category": "Clothes",
+          "price": 1229.0,
+          "avg_rating": 3.64,
+          "score": 0.5013,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Clothes."
+        },
+        {
+          "product_id": 135,
+          "name": "Clothes Item 135",
+          "category": "Clothes",
+          "price": 1158.0,
+          "avg_rating": 3.43,
+          "score": 0.4723,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Clothes. Fits your typical price range."
+        },
+        {
+          "product_id": 201,
+          "name": "Clothes Item 201",
+          "category": "Clothes",
+          "price": 1441.0,
+          "avg_rating": 2.5,
+          "score": 0.472,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Clothes. Supported by similar users."
+        },
+        {
+          "product_id": 173,
+          "name": "Home Appliances Item 173",
+          "category": "Home Appliances",
+          "price": 1167.0,
+          "avg_rating": 4.33,
+          "score": 0.4668,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Home Appliances. Fits your typical price range. Carries a strong average rating."
+        }
+      ],
+      "optimized": [
+        {
+          "product_id": 173,
+          "name": "Home Appliances Item 173",
+          "category": "Home Appliances",
+          "price": 1167.0,
+          "avg_rating": 4.33,
+          "score": 0.4668,
+          "label": "Optimized",
+          "reason": "Matches your strongest category interest in Home Appliances. Fits your typical price range. Carries a strong average rating."
+        },
+        {
+          "product_id": 386,
+          "name": "Clothes Item 386",
+          "category": "Clothes",
+          "price": 1063.0,
+          "avg_rating": 3.0,
+          "score": 0.6454,
+          "label": "Optimized",
+          "reason": "Matches your strongest category interest in Clothes. Fits your typical price range. Supported by similar users."
+        },
+        {
+          "product_id": 398,
+          "name": "Clothes Item 398",
+          "category": "Clothes",
+          "price": 1229.0,
+          "avg_rating": 3.64,
+          "score": 0.5013,
+          "label": "Optimized",
+          "reason": "Matches your strongest category interest in Clothes."
+        },
+        {
+          "product_id": 313,
+          "name": "Clothes Item 313",
+          "category": "Clothes",
+          "price": 745.0,
+          "avg_rating": 3.55,
+          "score": 0.4295,
+          "label": "Optimized",
+          "reason": "Matches your strongest category interest in Clothes."
+        },
+        {
+          "product_id": 422,
+          "name": "Books Item 422",
+          "category": "Books",
+          "price": 1065.0,
+          "avg_rating": 2.75,
+          "score": 0.4416,
+          "label": "Optimized",
+          "reason": "Fits your typical price range."
+        }
+      ]
+    },
+    {
+      "user_id": 24,
+      "truth": [
+        147,
+        446
+      ],
+      "baseline": [
+        {
+          "product_id": 457,
+          "name": "Clothes Item 457",
+          "category": "Clothes",
+          "price": 1143.0,
+          "avg_rating": 3.44,
+          "score": 0.5305,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Clothes. Fits your typical price range."
+        },
+        {
+          "product_id": 398,
+          "name": "Clothes Item 398",
+          "category": "Clothes",
+          "price": 1229.0,
+          "avg_rating": 3.64,
+          "score": 0.5284,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Clothes. Fits your typical price range."
+        },
+        {
+          "product_id": 135,
+          "name": "Clothes Item 135",
+          "category": "Clothes",
+          "price": 1158.0,
+          "avg_rating": 3.43,
+          "score": 0.5054,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Clothes. Fits your typical price range."
+        },
+        {
+          "product_id": 250,
+          "name": "Home Appliances Item 250",
+          "category": "Home Appliances",
+          "price": 1181.0,
+          "avg_rating": 3.17,
+          "score": 0.5011,
+          "label": "Baseline",
+          "reason": "Fits your typical price range. Supported by similar users."
+        },
+        {
+          "product_id": 10,
+          "name": "Sports Item 10",
+          "category": "Sports",
+          "price": 1298.0,
+          "avg_rating": 3.33,
+          "score": 0.4929,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Sports. Supported by similar users."
+        }
+      ],
+      "optimized": [
+        {
+          "product_id": 10,
+          "name": "Sports Item 10",
+          "category": "Sports",
+          "price": 1298.0,
+          "avg_rating": 3.33,
+          "score": 0.4929,
+          "label": "Optimized",
+          "reason": "Matches your strongest category interest in Sports. Supported by similar users."
+        },
+        {
+          "product_id": 250,
+          "name": "Home Appliances Item 250",
+          "category": "Home Appliances",
+          "price": 1181.0,
+          "avg_rating": 3.17,
+          "score": 0.5011,
+          "label": "Optimized",
+          "reason": "Fits your typical price range. Supported by similar users."
+        },
+        {
+          "product_id": 145,
+          "name": "Toys Item 145",
+          "category": "Toys",
+          "price": 1020.0,
+          "avg_rating": 2.7,
+          "score": 0.4194,
+          "label": "Optimized",
+          "reason": "Supported by similar users."
+        },
+        {
+          "product_id": 398,
+          "name": "Clothes Item 398",
+          "category": "Clothes",
+          "price": 1229.0,
+          "avg_rating": 3.64,
+          "score": 0.5284,
+          "label": "Optimized",
+          "reason": "Matches your strongest category interest in Clothes. Fits your typical price range."
+        },
+        {
+          "product_id": 262,
+          "name": "Electronics Item 262",
+          "category": "Electronics",
+          "price": 1006.0,
+          "avg_rating": 3.25,
+          "score": 0.4517,
+          "label": "Optimized",
+          "reason": "Supported by similar users."
+        }
+      ]
+    },
+    {
+      "user_id": 28,
+      "truth": [
+        199,
+        346
+      ],
+      "baseline": [
+        {
+          "product_id": 423,
+          "name": "Toys Item 423",
+          "category": "Toys",
+          "price": 917.0,
+          "avg_rating": 3.42,
+          "score": 0.5212,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Toys. Fits your typical price range. Supported by similar users."
+        },
+        {
+          "product_id": 439,
+          "name": "Clothes Item 439",
+          "category": "Clothes",
+          "price": 756.0,
+          "avg_rating": 3.25,
+          "score": 0.502,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Clothes. Supported by similar users."
+        },
+        {
+          "product_id": 145,
+          "name": "Toys Item 145",
+          "category": "Toys",
+          "price": 1020.0,
+          "avg_rating": 2.7,
+          "score": 0.4977,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Toys. Fits your typical price range. Supported by similar users."
+        },
+        {
+          "product_id": 400,
+          "name": "Toys Item 400",
+          "category": "Toys",
+          "price": 834.0,
+          "avg_rating": 3.73,
+          "score": 0.4748,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Toys."
+        },
+        {
+          "product_id": 490,
+          "name": "Clothes Item 490",
+          "category": "Clothes",
+          "price": 879.0,
+          "avg_rating": 3.86,
+          "score": 0.468,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Clothes. Fits your typical price range."
+        }
+      ],
+      "optimized": [
+        {
+          "product_id": 102,
+          "name": "Home Appliances Item 102",
+          "category": "Home Appliances",
+          "price": 953.0,
+          "avg_rating": 3.17,
+          "score": 0.3904,
+          "label": "Optimized",
+          "reason": "Fits your typical price range. Supported by similar users."
+        },
+        {
+          "product_id": 453,
+          "name": "Sports Item 453",
+          "category": "Sports",
+          "price": 1347.0,
+          "avg_rating": 3.88,
+          "score": 0.3953,
+          "label": "Optimized",
+          "reason": "Supported by similar users."
+        },
+        {
+          "product_id": 152,
+          "name": "Electronics Item 152",
+          "category": "Electronics",
+          "price": 673.0,
+          "avg_rating": 3.08,
+          "score": 0.3942,
+          "label": "Optimized",
+          "reason": "Supported by similar users."
+        },
+        {
+          "product_id": 96,
+          "name": "Toys Item 96",
+          "category": "Toys",
+          "price": 998.0,
+          "avg_rating": 3.18,
+          "score": 0.4292,
+          "label": "Optimized",
+          "reason": "Matches your strongest category interest in Toys. Fits your typical price range."
+        },
+        {
+          "product_id": 439,
+          "name": "Clothes Item 439",
+          "category": "Clothes",
+          "price": 756.0,
+          "avg_rating": 3.25,
+          "score": 0.502,
+          "label": "Optimized",
+          "reason": "Matches your strongest category interest in Clothes. Supported by similar users."
+        }
+      ]
+    },
+    {
+      "user_id": 31,
+      "truth": [
+        127,
+        301
+      ],
+      "baseline": [
+        {
+          "product_id": 213,
+          "name": "Perfumes Item 213",
+          "category": "Perfumes",
+          "price": 867.0,
+          "avg_rating": 2.69,
+          "score": 0.536,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Perfumes. Fits your typical price range. Supported by similar users."
+        },
+        {
+          "product_id": 388,
+          "name": "Perfumes Item 388",
+          "category": "Perfumes",
+          "price": 901.0,
+          "avg_rating": 3.0,
+          "score": 0.5289,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Perfumes. Fits your typical price range. Supported by similar users."
+        },
+        {
+          "product_id": 151,
+          "name": "Perfumes Item 151",
+          "category": "Perfumes",
+          "price": 1000.0,
+          "avg_rating": 3.3,
+          "score": 0.5119,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Perfumes. Supported by similar users."
+        },
+        {
+          "product_id": 190,
+          "name": "Home Appliances Item 190",
+          "category": "Home Appliances",
+          "price": 887.0,
+          "avg_rating": 3.67,
+          "score": 0.5018,
+          "label": "Baseline",
+          "reason": "Fits your typical price range. Supported by similar users."
+        },
+        {
+          "product_id": 359,
+          "name": "Perfumes Item 359",
+          "category": "Perfumes",
+          "price": 313.0,
+          "avg_rating": 3.6,
+          "score": 0.4899,
+          "label": "Baseline",
+          "reason": "Matches your strongest category interest in Perfumes. Supported by similar users."
+        }
+      ],
+      "optimized": [
+        {
+          "product_id": 244,
+          "name": "Sports Item 244",
+          "category": "Sports",
+          "price": 876.0,
+          "avg_rating": 2.56,
+          "score": 0.463,
+          "label": "Optimized",
+          "reason": "Fits your typical price range. Supported by similar users."
+        },
+        {
+          "product_id": 213,
+          "name": "Perfumes Item 213",
+          "category": "Perfumes",
+          "price": 867.0,
+          "avg_rating": 2.69,
+          "score": 0.536,
+          "label": "Optimized",
+          "reason": "Matches your strongest category interest in Perfumes. Fits your typical price range. Supported by similar users."
+        },
+        {
+          "product_id": 145,
+          "name": "Toys Item 145",
+          "category": "Toys",
+          "price": 1020.0,
+          "avg_rating": 2.7,
+          "score": 0.4461,
+          "label": "Optimized",
+          "reason": "Supported by similar users."
+        },
+        {
+          "product_id": 313,
+          "name": "Clothes Item 313",
+          "category": "Clothes",
+          "price": 745.0,
+          "avg_rating": 3.55,
+          "score": 0.4581,
+          "label": "Optimized",
+          "reason": "Supported by similar users."
+        },
+        {
+          "product_id": 190,
+          "name": "Home Appliances Item 190",
+          "category": "Home Appliances",
+          "price": 887.0,
+          "avg_rating": 3.67,
+          "score": 0.5018,
+          "label": "Optimized",
+          "reason": "Fits your typical price range. Supported by similar users."
+        }
+      ]
+    }
+  ]
+}

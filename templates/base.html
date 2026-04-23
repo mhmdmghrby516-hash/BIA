@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}M&M SmartShop{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body data-logged-in="{{ 'true' if logged_in else 'false' }}" data-user-id="{{ user_id if logged_in else '' }}">
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                    <i class="fas fa-store"></i>
+                    <span>M&M SmartShop</span>
+                </a>
+            </div>
+            <div class="search-bar">
+                <form action="/search" method="GET">
+                    <input type="text" name="q" placeholder="Search by product id or category..." aria-label="Search products">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <nav class="nav-links">
+                <a href="/"><i class="fas fa-house"></i> Home</a>
+                <a href="/about"><i class="fas fa-circle-info"></i> About</a>
+                <a href="/contact"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="#" id="cartIcon" class="cart-icon">
+                    <i class="fas fa-cart-shopping"></i> Cart
+                    <span id="cartCount" class="cart-count">0</span>
+                </a>
+                {% if logged_in %}
+                    <span class="user-greeting"><i class="fas fa-user"></i> User {{ user_id }}</span>
+                    <a href="/logout" class="logout-btn"><i class="fas fa-right-from-bracket"></i> Logout</a>
+                {% else %}
+                    <a href="/login" class="login-btn"><i class="fas fa-user-check"></i> Login</a>
+                {% endif %}
+            </nav>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4><i class="fas fa-store"></i> M&M SmartShop</h4>
+                <p>Hybrid product recommendations built from ratings, behavior, price alignment, similar users, and a genetic optimization layer.</p>
+            </div>
+            <div class="footer-section">
+                <h4><i class="fas fa-sitemap"></i> Project Flow</h4>
+                <p>Clean data</p>
+                <p>Score baseline candidates</p>
+                <p>Optimize the final top-5 list</p>
+                <p>Evaluate offline with holdout metrics</p>
+            </div>
+            <div class="footer-section">
+                <h4><i class="fas fa-code"></i> Demo Notes</h4>
+                <p>Guest users see featured products.</p>
+                <p>Logged-in users get baseline vs optimized recommendations.</p>
+                <p>Carts and ratings are demo-state features.</p>
+            </div>
+            <div class="footer-section">
+                <h4><i class="fas fa-link"></i> Quick Links</h4>
+                <p><a href="/">Home</a></p>
+                <p><a href="/about">About the recommender</a></p>
+                <p><a href="/contact">Project delivery</a></p>
+                <p><a href="/login">Switch user</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>M&M SmartShop demo | Hybrid baseline + GA optimization</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+

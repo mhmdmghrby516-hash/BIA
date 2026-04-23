@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block title %}M&M SmartShop{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-layout">
+        <div class="hero-copy">
+            <p class="eyebrow">Hybrid Recommender Demo</p>
+            <h1>Baseline scoring first, genetic optimization second.</h1>
+            <p class="hero-text">
+                This version upgrades the original storefront into a real recommender-system demo.
+                It cleans the dataset, builds user profiles, scores a hybrid baseline, and then
+                optimizes the final top-5 list with a genetic algorithm.
+            </p>
+            <div class="hero-actions">
+                {% if logged_in %}
+                    <a href="#comparison" class="btn-primary">View your recommendations</a>
+                {% else %}
+                    <a href="/login" class="btn-primary">Login as a dataset user</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="hero-panel">
+            <div class="stat-pill"><span>Users</span><strong>{{ dataset_summary.users }}</strong></div>
+            <div class="stat-pill"><span>Products</span><strong>{{ dataset_summary.products }}</strong></div>
+            <div class="stat-pill"><span>Ratings</span><strong>{{ dataset_summary.ratings_after_cleaning }}</strong></div>
+            <div class="stat-pill"><span>Behavior rows</span><strong>{{ dataset_summary.behavior_after_cleaning }}</strong></div>
+        </div>
+    </div>
+</section>
+
+<section class="dashboard-section">
+    <div class="container stack-layout">
+        <div class="info-grid">
+            <article class="info-card">
+                <h2><i class="fas fa-database"></i> Dataset Snapshot</h2>
+                <div class="mini-stats">
+                    <div><span>Categories</span><strong>{{ dataset_summary.categories|length }}</strong></div>
+                    <div><span>Countries</span><strong>{{ dataset_summary.countries|length }}</strong></div>
+                    <div><span>Age range</span><strong>{{ dataset_summary.age_range[0] }}-{{ dataset_summary.age_range[1] }}</strong></div>
+                    <div><span>Price range</span><strong>${{ dataset_summary.price_range[0]|round(0)|int }}-${{ dataset_summary.price_range[1]|round(0)|int }}</strong></div>
+                </div>
+            </article>
+            <article class="info-card">
+                <h2><i class="fas fa-flask"></i> Offline Evaluation</h2>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span>Precision@5</span>
+                        <strong>{{ evaluation_summary.get('precision_at_5', {}).get('optimized', '-') }}</strong>
+                        <small>Baseline {{ evaluation_summary.get('precision_at_5', {}).get('baseline', '-') }}</small>
+                    </div>
+                    <div class="metric-card">
+                        <span>Recall@5</span>
+                        <strong>{{ evaluation_summary.get('recall_at_5', {}).get('optimized', '-') }}</strong>
+                        <small>Baseline {{ evaluation_summary.get('recall_at_5', {}).get('baseline', '-') }}</small>
+                    </div>
+                    <div class="metric-card">
+                        <span>Diversity@5</span>
+                        <strong>{{ evaluation_summary.get('diversity_at_5', {}).get('optimized', '-') }}</strong>
+                        <small>Baseline {{ evaluation_summary.get('diversity_at_5', {}).get('baseline', '-') }}</small>
+                    </div>
+                    <div class="metric-card">
+                        <span>Coverage</span>
+                        <strong>{{ evaluation_summary.get('coverage', {}).get('optimized', '-') }}</strong>
+                        <small>Baseline {{ evaluation_summary.get('coverage', {}).get('baseline', '-') }}</small>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        {% if logged_in %}
+        <section class="user-selector-card" id="comparison">
+            <div class="section-head">
+                <h2><i class="fas fa-user-gear"></i> Personalized Recommendation Workspace</h2>
+                <p>Compare the baseline ranking against the GA-optimized list for the selected user.</p>
+            </div>
+
+            <div class="control-row">
+                <div class="filter-group">
+                    <label for="categoryFilter"><i class="fas fa-filter"></i> Filter by category</label>
+                    <select id="categoryFilter" class="category-filter">
+                        <option value="all">All categories</option>
+                    </select>
+                </div>
+                <button id="resetFilter" class="reset-filter"><i class="fas fa-rotate"></i> Reset filter</button>
+            </div>
+
+            <div class="quick-users">
+                <span class="quick-users-label">Quick users:</span>
+                {% for uid in sample_users %}
+                    <button class="ghost-button quick-user" data-user-id="{{ uid }}" type="button">{{ uid }}</button>
+                {% endfor %}
+            </div>
+
+            <section class="ga-lab-card">
+                <div class="section-head">
+                    <h3><i class="fas fa-dna"></i> GA Lab</h3>
+                    <p>Borrowed from the comparison project: tune the genetic algorithm and inspect how fitness evolves.</p>
+                </div>
+                <div class="ga-settings-grid">
+                    <label>
+                        <span>Generations</span>
+                        <input id="gaGenerations" type="number" min="4" max="120" value="{{ ga_defaults.generations }}">
+                    </label>
+                    <label>
+                        <span>Population size</span>
+                        <input id="gaPopulationSize" type="number" min="8" max="120" value="{{ ga_defaults.population_size }}">
+                    </label>
+                    <label>
+                        <span>Mutation rate</span>
+                        <input id="gaMutationRate" type="number" min="0" max="1" step="0.01" value="{{ ga_defaults.mutation_rate }}">
+                    </label>
+                </div>
+                <div class="ga-action-row">
+                    <button id="applyGaSettings" class="btn-primary" type="button">Re-run optimized list</button>
+                    <p class="muted-copy">The baseline ranking stays the same. The optimized list updates with your current GA settings.</p>
+                </div>
+            </section>
+
+            <div class="result-meta" id="resultMeta">
+                <div class="stat-card">
+                    <span class="stat-label">Selected user</span>
+                    <span id="selectedUser" class="stat-value">{{ user_id }}</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Candidate pool</span>
+                    <span id="candidatePool" class="stat-value">-</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Top categories</span>
+                    <span id="prefCats" class="stat-value">-</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Preferred price</span>
+                    <span id="avgPrice" class="stat-value">-</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Interactions</span>
+                    <span id="interactionCount" class="stat-value">-</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Purchases</span>
+                    <span id="purchaseCount" class="stat-value">-</span>
+                </div>
+            </div>
+
+            <div class="comparison-layout">
+                <section class="comparison-panel">
+                    <div class="section-head tight">
+                        <h3>Baseline top-5</h3>
+                        <p>The direct hybrid ranking before GA refinement.</p>
+                    </div>
+                    <div id="baselineGrid" class="products-grid comparison-grid"></div>
+                </section>
+                <section class="comparison-panel highlight-panel">
+                    <div class="section-head tight">
+                        <h3>Optimized top-5</h3>
+                        <p>The final list selected after genetic optimization.</p>
+                    </div>
+                    <div id="optimizedGrid" class="products-grid comparison-grid"></div>
+                </section>
+            </div>
+
+            <section class="comparison-panel ga-history-panel">
+                <div class="section-head tight">
+                    <h3>GA Fitness History</h3>
+                    <p>Best and mean fitness values across generations.</p>
+                </div>
+                <div class="result-meta ga-summary-grid">
+                    <div class="stat-card">
+                        <span class="stat-label">Best fitness</span>
+                        <span id="gaBestFitness" class="stat-value">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Generations</span>
+                        <span id="gaGenerationsUsed" class="stat-value">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Population</span>
+                        <span id="gaPopulationUsed" class="stat-value">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Mutation</span>
+                        <span id="gaMutationUsed" class="stat-value">-</span>
+                    </div>
+                </div>
+                <div id="gaHistoryChart" class="ga-history-chart">
+                    <p class="chart-empty">Run recommendations to view GA progress.</p>
+                </div>
+                <p class="chart-legend">
+                    <span class="swatch best"></span>Best fitness
+                    <span class="swatch mean"></span>Mean fitness
+                </p>
+            </section>
+        </section>
+        {% else %}
+        <section class="random-products-card">
+            <div class="section-head">
+                <h2><i class="fas fa-store"></i> Featured Products for Guests</h2>
+                <p>Log in to unlock user-specific baseline and optimized recommendations.</p>
+            </div>
+            <div class="control-row">
+                <div class="filter-group">
+                    <label for="categoryFilter"><i class="fas fa-filter"></i> Filter by category</label>
+                    <select id="categoryFilter" class="category-filter">
+                        <option value="all">All categories</option>
+                    </select>
+                </div>
+                <button id="resetFilter" class="reset-filter"><i class="fas fa-rotate"></i> Reset filter</button>
+            </div>
+            <div id="randomProductsGrid" class="products-grid"></div>
+            <div class="login-prompt">
+                <p><a href="/login" class="btn-primary">Login to compare baseline vs optimized recommendations</a></p>
+            </div>
+        </section>
+        {% endif %}
+
+        <section class="profile-area">
+            <div class="section-head">
+                <h2><i class="fas fa-file-lines"></i> Delivery Status</h2>
+                <p>Files generated in this upgraded version and the remaining manual submission tasks.</p>
+            </div>
+            <div class="mini-stats">
+                <div><span>Arabic report</span><strong>{{ "Ready" if delivery_status.ready_files.report else "Missing" }}</strong></div>
+                <div><span>Video script</span><strong>{{ "Ready" if delivery_status.ready_files.video_script else "Missing" }}</strong></div>
+                <div><span>Checklist</span><strong>{{ "Ready" if delivery_status.ready_files.checklist else "Missing" }}</strong></div>
+                <div><span>Render config</span><strong>{{ "Ready" if delivery_status.ready_files.render_config else "Missing" }}</strong></div>
+                <div><span>WSGI entry</span><strong>{{ "Ready" if delivery_status.ready_files.wsgi else "Missing" }}</strong></div>
+            </div>
+            <ul class="status-bullets">
+                {% for item in delivery_status.manual_items %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</section>
+{% endblock %}

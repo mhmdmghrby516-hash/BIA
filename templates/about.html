@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}About the Recommender{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="container">
+        <h1><i class="fas fa-circle-info"></i> About the upgraded project</h1>
+        <p>
+            This project now behaves like a real recommender-system demo rather than a storefront with
+            precomputed JSON results. The application loads the raw dataset, cleans ratings and behavior,
+            builds a hybrid baseline, and then applies a genetic algorithm to improve the final top-5 list.
+        </p>
+
+        <h2 class="accent-title"><i class="fas fa-gears"></i> System pipeline</h2>
+        <ul>
+            <li><i class="fas fa-check"></i> Clean and aggregate users, products, ratings, and behavior.</li>
+            <li><i class="fas fa-check"></i> Build user profiles from categories, price preference, and interactions.</li>
+            <li><i class="fas fa-check"></i> Score products with content, price, collaborative, popularity, and rating signals.</li>
+            <li><i class="fas fa-check"></i> Run a genetic algorithm over the candidate pool to improve diversity and list quality.</li>
+            <li><i class="fas fa-check"></i> Evaluate offline with holdout metrics saved in <code>docs/evaluation_summary.json</code>.</li>
+        </ul>
+
+        <h2 class="accent-title"><i class="fas fa-chart-line"></i> Current metrics</h2>
+        <div class="mini-stats">
+            <div><span>Users</span><strong>{{ dataset_summary.users }}</strong></div>
+            <div><span>Products</span><strong>{{ dataset_summary.products }}</strong></div>
+            <div><span>Evaluated users</span><strong>{{ evaluation_summary.get('evaluated_users', '-') }}</strong></div>
+            <div><span>Optimized diversity@5</span><strong>{{ evaluation_summary.get('diversity_at_5', {}).get('optimized', '-') }}</strong></div>
+        </div>
+
+        <h2 class="accent-title"><i class="fas fa-book"></i> Project reference</h2>
+        <p><strong>{{ project_reference.title }}</strong></p>
+        <p>{{ project_reference.method }}</p>
+        <p>Data files: {{ project_reference.dataset }}</p>
+    </div>
+</div>
+{% endblock %}
+

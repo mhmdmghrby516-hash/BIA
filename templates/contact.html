@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Project Delivery{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="container">
+        <h1><i class="fas fa-envelope"></i> Delivery and next actions</h1>
+        <p>
+            This page tracks the remaining submission work after the recommender upgrade. The generated files
+            are already inside the project, while the items below still require manual delivery steps.
+        </p>
+
+        <div class="contact-info">
+            <p><i class="fas fa-file-lines"></i> <strong>Arabic report:</strong> <code>docs/report_ar.md</code></p>
+            <p><i class="fas fa-video"></i> <strong>Video script:</strong> <code>docs/video_script_ar.md</code></p>
+            <p><i class="fas fa-list-check"></i> <strong>Checklist:</strong> <code>docs/submission_checklist_ar.md</code></p>
+            <p><i class="fas fa-cloud"></i> <strong>Deployment:</strong> <code>render.yaml</code> + <code>wsgi.py</code></p>
+        </div>
+
+        <h2 class="accent-title"><i class="fas fa-triangle-exclamation"></i> Manual tasks</h2>
+        <ul>
+            {% for item in delivery_status.manual_items %}
+                <li><i class="fas fa-arrow-right"></i> {{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
