@@ -1,0 +1,6 @@
+git clone https://github.com/mhmdmghrby516-hash/BIA.git
+cd BIA
+git switch -c your-barnsh-name
+git add .
+git commit -m "your message"
+git push -u your-barnsh-name
